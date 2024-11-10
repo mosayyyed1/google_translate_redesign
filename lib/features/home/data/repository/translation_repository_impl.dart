@@ -9,16 +9,20 @@ import 'translation_repository.dart';
 
 class TranslationRepositoryImpl implements TranslationRepository {
   final ApiService apiService;
-  final Dio dio;
 
-  TranslationRepositoryImpl(this.dio, this.apiService);
+  TranslationRepositoryImpl(this.apiService);
 
   @override
   Future<Either<Failure, TranslationModel>> translate(
       String from, String to, String query) async {
     try {
       final response = await apiService.post(
-        endpoint: "translate",
+        endpoint: "free-google-translator",
+        queryParameters: {
+          'from': from,
+          'to': to,
+          'query': query,
+        },
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -28,13 +32,13 @@ class TranslationRepositoryImpl implements TranslationRepository {
           },
         ),
         data: {
-          'from': from,
-          'to': to,
-          'query': query,
+          'translate': 'rapidapi',
         },
       );
 
       if (response.data != null) {
+        print("----------------------------$response");
+
         if (response.statusCode == 200) {
           final translationModel = TranslationModel.fromJson(response.data);
           return Right(translationModel);

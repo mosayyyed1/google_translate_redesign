@@ -1,6 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/themes/app_colors.dart';
+import 'core/utils/api_service.dart';
+import 'features/home/data/repository/translation_repository_impl.dart';
+import 'features/home/presentation/controller/translate_cubit.dart';
 import 'features/splash/views/screens/splash_screen.dart';
 
 void main() {
@@ -12,12 +17,16 @@ class GoogleTranslateRedesignApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.kPrimaryColor,
+    return BlocProvider(
+      create: (context) =>
+          TranslateCubit(TranslationRepositoryImpl(ApiService(Dio()))),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.kPrimaryColor,
+        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }

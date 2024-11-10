@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/themes/app_assets.dart';
+import '../../../../../../core/themes/app_assets.dart';
 
 class AppBarSection extends StatelessWidget implements PreferredSizeWidget {
   const AppBarSection({super.key});

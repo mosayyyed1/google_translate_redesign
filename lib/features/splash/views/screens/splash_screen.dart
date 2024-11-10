@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_translate_redesign/core/themes/app_assets.dart';
 
-import '../../../home/views/home_screen.dart';
+import '../../../home/presentation/views/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

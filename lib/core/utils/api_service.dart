@@ -2,15 +2,12 @@ import 'package:dio/dio.dart';
 
 class ApiService {
   final Dio _dio;
-  static const String kBaseUrl = "https://api.openweathermap.org/data/2.5";
+  static const String kBaseUrl =
+      "https://free-google-translator.p.rapidapi.com/external-api";
 
-  ApiService(this._dio) {
-    _dio.options.baseUrl = kBaseUrl;
-    _dio.options.connectTimeout = const Duration(seconds: 10);
-    _dio.options.receiveTimeout = const Duration(seconds: 10);
-  }
+  ApiService(this._dio);
 
-  Future<Response?> get({
+  Future<Response> get({
     required String endpoint,
     required Map<String, dynamic> queryParameters,
   }) async {
@@ -21,13 +18,15 @@ class ApiService {
 
   Future<Response> post(
       {required String endpoint,
+      required Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? data,
       Options? options}) async {
     final response = await _dio.post(
-      endpoint,
+      "$kBaseUrl/$endpoint",
+      queryParameters: queryParameters,
       options: options,
       data: data,
     );
-    return response.data;
+    return response;
   }
 }
