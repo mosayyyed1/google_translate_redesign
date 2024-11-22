@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TranslationResultSection extends StatelessWidget {
-  const TranslationResultSection({super.key});
+  const TranslationResultSection(
+      {super.key, this.translationResult = "Result"});
+  final String translationResult;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TranslationResultSection extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              "Translation result will appear here.",
+              translationResult,
               style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
             ),
           ),

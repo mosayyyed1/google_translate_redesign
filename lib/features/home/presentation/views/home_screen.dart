@@ -38,8 +38,12 @@ class HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<TranslateCubit>(context).translate(
-                          "en",
-                          "ar",
+                          BlocProvider.of<TranslateCubit>(context)
+                              .fromLanguage
+                              .code,
+                          BlocProvider.of<TranslateCubit>(context)
+                              .toLanguage
+                              .code,
                           _textController.text,
                         );
                       },
@@ -59,7 +63,13 @@ class HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const TranslationResultSection(),
+                    if (state is TranslateSuccess)
+                      TranslationResultSection(
+                          translationResult:
+                              state.translationModel.translation),
+                    if (state is TranslateFailure)
+                      Text(state.message,
+                          style: const TextStyle(color: Colors.red)),
                     const BottomNavSection(),
                   ],
                 ),

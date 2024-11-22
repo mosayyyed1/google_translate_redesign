@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:google_translate_redesign/core/utils/api_service.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/error/server_failure.dart';
 import '../models/TranslationModel.dart';
+import '../models/language_model.dart';
 import 'translation_repository.dart';
 
 class TranslationRepositoryImpl implements TranslationRepository {
@@ -52,6 +56,18 @@ class TranslationRepositoryImpl implements TranslationRepository {
       }
     } on DioException catch (error) {
       return Left(ServerFailure.fromDioException(error));
+    }
+  }
+
+  @override
+  Future<List<LanguageModel>> loadLanguages() async {
+    try {
+      final response = await rootBundle.loadString('assets/jsons/language_list.json');
+      List<dynamic> data = jsonDecode(response);
+
+      return data.map((json) => LanguageModel.fromJson(json)).toList();
+    } catch (error) {
+      throw Exception('Failed to load languages: $error');
     }
   }
 }

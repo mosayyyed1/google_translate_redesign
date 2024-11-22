@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/themes/app_colors.dart';
 import 'core/utils/api_service.dart';
 import 'features/home/data/repository/translation_repository_impl.dart';
 import 'features/home/presentation/controller/translate_cubit.dart';
@@ -22,9 +21,7 @@ class GoogleTranslateRedesignApp extends StatelessWidget {
           TranslateCubit(TranslationRepositoryImpl(ApiService(Dio()))),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.kPrimaryColor,
-        ),
+        theme: ThemeData(),
         home: const SplashScreen(),
       ),
     );
