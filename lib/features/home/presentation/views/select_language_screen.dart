@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/language_model.dart';
 import '../../presentation/controller/translate_cubit.dart';
 import 'widgets/select_language/language_list.dart';
+import 'widgets/select_language/search_bar.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   const SelectLanguageScreen({
@@ -40,7 +41,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
         child: Column(
           children: [
-            SearchBar(
+            MySearchBar(
               controller: _searchController,
               onChanged: _filterLanguages,
             ),

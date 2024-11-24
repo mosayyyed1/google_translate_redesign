@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatelessWidget {
+class MySearchBar extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
 
-  const SearchBar({
+  const MySearchBar({
     super.key,
     required this.controller,
     required this.onChanged,
