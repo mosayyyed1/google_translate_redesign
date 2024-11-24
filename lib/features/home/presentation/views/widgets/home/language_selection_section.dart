@@ -29,7 +29,10 @@ class LanguageSelectionSection extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: translateCubit.swapLanguages,
-                icon: const Icon(Icons.compare_arrows, color: Colors.blue),
+                icon: Icon(
+                  Icons.compare_arrows,
+                  color: Colors.blueAccent.withOpacity(0.9),
+                ),
               ),
               const Spacer(),
               LanguageButton(

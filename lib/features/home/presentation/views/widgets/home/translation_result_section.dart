@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TranslationResultSection extends StatelessWidget {
   const TranslationResultSection(
@@ -29,7 +30,9 @@ class TranslationResultSection extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: translationResult));
+            },
             icon: const Icon(Icons.copy, color: Colors.blue),
           ),
         ],

@@ -30,7 +30,7 @@ class LanguageButton extends StatelessWidget {
         width: 140,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.blue.shade700,
+          color: Colors.blueAccent.withOpacity(0.9),
           boxShadow: [
             BoxShadow(
               color: Colors.blue.shade700.withOpacity(0.3),

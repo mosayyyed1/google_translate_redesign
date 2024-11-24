@@ -16,32 +16,43 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<TranslateCubit, TranslateState>(
       builder: (context, state) {
         final cubit = context.read<TranslateCubit>();
+
         return Scaffold(
           appBar: const AppBarSection(),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const LanguageSelectionSection(),
-                    const SizedBox(height: 20),
-                    TextInputSection(controller: cubit.textController),
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 30),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Enter text to translate:",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const TextInputSection(),
+                    const SizedBox(height: 25),
                     ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<TranslateCubit>(context).translate(
-                          BlocProvider.of<TranslateCubit>(context)
-                              .fromLanguage
-                              .code,
-                          BlocProvider.of<TranslateCubit>(context)
-                              .toLanguage
-                              .code,
+                          cubit.fromLanguage.code,
+                          cubit.toLanguage.code,
                           cubit.textController.text,
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade700,
+                        backgroundColor: Colors.blueAccent.withOpacity(0.9),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -50,19 +61,25 @@ class HomeScreen extends StatelessWidget {
                       child: const Text(
                         "Translate",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 30),
                     if (state is TranslateSuccess)
                       TranslationResultSection(
-                          translationResult:
-                              state.translationModel.translation),
+                        translationResult: state.translationModel.translation,
+                      ),
                     if (state is TranslateFailure)
-                      Text(state.message,
-                          style: const TextStyle(color: Colors.red)),
+                      Center(
+                        child: Text(
+                          state.message,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    const SizedBox(height: 40),
                     const BottomNavSection(),
                   ],
                 ),

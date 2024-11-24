@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../controller/translate_cubit.dart';
 
 class TextInputSection extends StatelessWidget {
-  final TextEditingController controller;
-
-  const TextInputSection({required this.controller, super.key});
+  const TextInputSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class TextInputSection extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              controller: controller,
+              controller: context.read<TranslateCubit>().textController,
               maxLines: 5,
               minLines: 1,
               onSubmitted: (value) {
@@ -47,10 +45,14 @@ class TextInputSection extends StatelessWidget {
               ClipboardData? clipboardData =
                   await Clipboard.getData('text/plain');
               if (clipboardData != null) {
-                controller.text = clipboardData.text!;
+                context.read<TranslateCubit>().textController.text =
+                    clipboardData.text!;
               }
             },
-            icon: const Icon(Icons.paste, color: Colors.blue),
+            icon: Icon(
+              Icons.paste,
+              color: Colors.blueAccent.withOpacity(0.9),
+            ),
           ),
         ],
       ),

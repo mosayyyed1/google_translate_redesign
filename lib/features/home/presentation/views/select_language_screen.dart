@@ -5,6 +5,7 @@ import '../../data/models/language_model.dart';
 import '../../presentation/controller/translate_cubit.dart';
 import 'widgets/select_language/language_list.dart';
 import 'widgets/select_language/search_bar.dart';
+import 'widgets/select_language/select_language_app_bar.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   const SelectLanguageScreen({
@@ -25,18 +26,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.blueAccent.withOpacity(0.9),
-        title: const Text(
-          "Select Language",
-          style: TextStyle(
-            fontSize: 22,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: const SelectLanguageAppBar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
         child: Column(
