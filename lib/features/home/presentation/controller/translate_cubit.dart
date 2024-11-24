@@ -33,15 +33,25 @@ class TranslateCubit extends Cubit<TranslateState> {
     return await translationRepository.loadLanguages();
   }
 
-  void setFromLanguage(LanguageModel language) {
+  void updateFromLanguage(LanguageModel language) {
     fromLanguage = language;
     emit(TranslateLanguageUpdated());
   }
 
-  void setToLanguage(LanguageModel language) {
+  void updateToLanguage(LanguageModel language) {
     toLanguage = language;
     emit(TranslateLanguageUpdated());
   }
+
+  // void setFromLanguage(LanguageModel language) {
+  //   fromLanguage = language;
+  //   emit(TranslateLanguageUpdated());
+  // }
+  //
+  // void setToLanguage(LanguageModel language) {
+  //   toLanguage = language;
+  //   emit(TranslateLanguageUpdated());
+  // }
 
   void swapLanguages() {
     final temp = fromLanguage;

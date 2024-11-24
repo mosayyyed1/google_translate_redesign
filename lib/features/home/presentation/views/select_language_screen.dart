@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:google_translate_redesign/features/home/presentation/controller/translate_cubit.dart';
 
+// Models
 import '../../data/models/language_model.dart';
+// Controller
+import '../../presentation/controller/translate_cubit.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   const SelectLanguageScreen({
@@ -11,7 +13,7 @@ class SelectLanguageScreen extends StatefulWidget {
     required this.callback,
   });
 
-  final void Function() callback;
+  final void Function(LanguageModel) callback; // تعديل النوع ليصبح دالة
 
   @override
   SelectLanguageScreenState createState() => SelectLanguageScreenState();
@@ -127,8 +129,9 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
                                   trailing: const Icon(Icons.arrow_forward_ios,
                                       size: 16, color: Colors.grey),
                                   onTap: () {
+                                    // تمرير اللغة المختارة إلى الـ callback
+                                    widget.callback(_filteredLanguages[index]);
                                     Navigator.of(context).pop();
-                                    widget.callback(); // Corrected line
                                   },
                                 ),
                               ),

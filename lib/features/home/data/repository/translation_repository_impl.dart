@@ -41,8 +41,6 @@ class TranslationRepositoryImpl implements TranslationRepository {
       );
 
       if (response.data != null) {
-        print("----------------------------$response");
-
         if (response.statusCode == 200) {
           final translationModel = TranslationModel.fromJson(response.data);
           return Right(translationModel);
@@ -62,7 +60,8 @@ class TranslationRepositoryImpl implements TranslationRepository {
   @override
   Future<List<LanguageModel>> loadLanguages() async {
     try {
-      final response = await rootBundle.loadString('assets/jsons/language_list.json');
+      final response =
+          await rootBundle.loadString('assets/jsons/language_list.json');
       List<dynamic> data = jsonDecode(response);
 
       return data.map((json) => LanguageModel.fromJson(json)).toList();
