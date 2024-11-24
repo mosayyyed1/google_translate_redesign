@@ -43,16 +43,6 @@ class TranslateCubit extends Cubit<TranslateState> {
     emit(TranslateLanguageUpdated());
   }
 
-  // void setFromLanguage(LanguageModel language) {
-  //   fromLanguage = language;
-  //   emit(TranslateLanguageUpdated());
-  // }
-  //
-  // void setToLanguage(LanguageModel language) {
-  //   toLanguage = language;
-  //   emit(TranslateLanguageUpdated());
-  // }
-
   void swapLanguages() {
     final temp = fromLanguage;
     fromLanguage = toLanguage;

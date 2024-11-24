@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-// Models
 import '../../data/models/language_model.dart';
-// Controller
 import '../../presentation/controller/translate_cubit.dart';
+import 'widgets/select_language/language_list.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   const SelectLanguageScreen({
@@ -13,8 +11,7 @@ class SelectLanguageScreen extends StatefulWidget {
     required this.callback,
   });
 
-  final void Function(LanguageModel) callback; // تعديل النوع ليصبح دالة
-
+  final void Function(LanguageModel) callback;
   @override
   SelectLanguageScreenState createState() => SelectLanguageScreenState();
 }
@@ -43,21 +40,8 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
         child: Column(
           children: [
-            // Search bar section
-            TextField(
+            SearchBar(
               controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search Languages...',
-                hintStyle: TextStyle(color: Colors.grey[600]),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: const Icon(Icons.search, color: Colors.blueAccent),
-                contentPadding: const EdgeInsets.symmetric(vertical: 14),
-              ),
               onChanged: _filterLanguages,
             ),
             const SizedBox(height: 16),
@@ -93,53 +77,12 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
                     _languages = snapshot.data!;
                     _filteredLanguages = _languages;
                   }
-                  return AnimationLimiter(
-                    child: ListView.builder(
-                      itemCount: _filteredLanguages.length,
-                      itemBuilder: (context, index) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 500),
-                          child: SlideAnimation(
-                            horizontalOffset: 60.0,
-                            child: FadeInAnimation(
-                              child: Card(
-                                elevation: 6,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 15),
-                                  title: Text(
-                                    _filteredLanguages[index].name,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    _filteredLanguages[index].code,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  trailing: const Icon(Icons.arrow_forward_ios,
-                                      size: 16, color: Colors.grey),
-                                  onTap: () {
-                                    // تمرير اللغة المختارة إلى الـ callback
-                                    widget.callback(_filteredLanguages[index]);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  return LanguageList(
+                    languages: _filteredLanguages,
+                    onLanguageTap: (language) {
+                      widget.callback(language);
+                      Navigator.of(context).pop();
+                    },
                   );
                 },
               ),

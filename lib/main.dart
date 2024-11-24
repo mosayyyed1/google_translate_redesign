@@ -21,7 +21,9 @@ class GoogleTranslateRedesignApp extends StatelessWidget {
           TranslateCubit(TranslationRepositoryImpl(ApiService(Dio()))),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.grey[100],
+        ),
         home: const SplashScreen(),
       ),
     );

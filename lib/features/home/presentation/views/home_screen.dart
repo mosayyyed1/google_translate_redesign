@@ -8,22 +8,15 @@ import 'widgets/home/language_selection_section.dart';
 import 'widgets/home/text_input_section.dart';
 import 'widgets/home/translation_result_section.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  HomeScreenState createState() => HomeScreenState();
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TranslateCubit, TranslateState>(
       builder: (context, state) {
+        final cubit = context.read<TranslateCubit>();
         return Scaffold(
-          backgroundColor: Colors.grey[100],
           appBar: const AppBarSection(),
           body: SafeArea(
             child: SingleChildScrollView(
@@ -33,7 +26,7 @@ class HomeScreenState extends State<HomeScreen> {
                   children: [
                     const LanguageSelectionSection(),
                     const SizedBox(height: 20),
-                    TextInputSection(controller: _textController),
+                    TextInputSection(controller: cubit.textController),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
@@ -44,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> {
                           BlocProvider.of<TranslateCubit>(context)
                               .toLanguage
                               .code,
-                          _textController.text,
+                          cubit.textController.text,
                         );
                       },
                       style: ElevatedButton.styleFrom(
